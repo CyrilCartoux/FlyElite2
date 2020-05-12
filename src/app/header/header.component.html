@@ -1,0 +1,46 @@
+<nav class="navbar navbar-expand-lg navbar">
+    <a class="navbar-brand" [routerLink]="['/search']" routerLinkActive="router-link-active">Fly Elite <i
+            class="fas fa-globe-europe fa-1x"></i></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+            <a class="nav-link" routerLink='search' routerLinkActive=active
+                [routerLinkActiveOptions]="{ exact: true }">Rechercher un vol</a>
+        </li>
+        <li class="nav-item" *ngIf="user">
+            <a class="nav-link" routerLink="checkin" routerLinkActive=active>Carte embarquement</a>
+        </li>
+    </ul>
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item" *ngIf="!user && !successLogOut">
+            <a class="nav-link" style="cursor: pointer;" [routerLink]="['/auth']" routerLinkActive=active>
+                Connexion
+            </a>
+        </li>
+        <li class="nav-item" *ngIf="user">
+            <a class="nav-link" style="cursor: pointer;" [routerLink]="['/account']" routerLinkActive=active>
+                Mon compte
+            </a>
+        </li>
+        <li class="nav-item" *ngIf="user">
+            <a class="nav-link" style="cursor: pointer;" [routerLink]="['/admin']" routerLinkActive=active>
+                Administrer
+            </a>
+        </li>
+        <li class="nav-item" *ngIf="user">
+            <a class="nav-link" style="cursor: pointer;" (click)="logout()" routerLinkActive=active>
+                Se déconnecter
+            </a>
+        </li>
+        <li class="nav-item" *ngIf="successLogOut">
+            <div class="alert alert-success" role="alert">
+                Déconnecté !
+              </div>
+        </li>
+    </ul>
+
+</nav>

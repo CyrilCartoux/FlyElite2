@@ -1,0 +1,44 @@
+<div class="container-fluid text-center pt-5 pb-2">
+    <h4><i class="fas fa-plane-departure"> </i> Nos vols disponibles : </h4>
+</div>
+
+<div class="container mb-3" *ngFor="let flight of flights; let i = index">
+    <hr style="background-color: white;">
+
+    <div class="row m-0">
+        <div class="col-12">
+            {{ flight.departure }} - {{ flight.arrival }}
+        </div>
+        <div class="col-12">
+            <i class="fas fa-plane"></i> Vol direct :
+        </div>
+    </div>
+    <div class="row m-0" style="background-color: white;">
+        <div class="col-10">
+            <div class="row m-0 d-flex justify-content-around">
+                <div class="col-2">
+                    <h6>Horaires : </h6>
+                    <p>Départ : {{ flight.departure }} - {{ flight.departureTime | date:'HH:mm'}} </p>
+                    <p>Arrivée : {{ flight.arrival }} - {{ flight.landingTime | date:'HH:mm'}} </p>
+                </div>
+                <div class="col-4 text-center">
+                    <h6>Départ : </h6>
+                    <p>{{ flight.departure }}</p>
+                </div>
+                <i class="fas fa-arrow"></i>
+                <div class="col-4 text-center">
+                    <h6>Arrivée : </h6>
+                    <p> {{flight.arrival}} </p>
+                </div>
+                <div class="col-2">
+                    <h6>Compagnie : </h6>
+                    <p> {{flight.company}} </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-2 verticalLine">
+            <h6>Meilleur tarif : </h6>
+            <a class="btn btn-primary" (click)='onSelectFlight(i)'>{{price}} € </a>
+        </div>
+    </div>
+</div>

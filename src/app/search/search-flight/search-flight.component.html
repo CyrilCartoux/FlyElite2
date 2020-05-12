@@ -1,0 +1,88 @@
+<p-toast [showTransformOptions]="'translateX(50%)'" position="top-center" key="tc"></p-toast>
+<div class="row row-flight d-flex justify-content-center align-items-center m-0" style="height: 250px;">
+    <div class="col-12 p-0">
+        <form [formGroup]='flightForm' (ngSubmit)="onSubmitFlightForm()">
+            <div class="container-fluid">
+                <div class="row text-center m-0">
+                    <div class="col-3">
+                        <p><i class="fas fa-plane-departure fa-2x"></i> Départ : </p>
+                        <p-dropdown [options]="airports" formControlName="departure" name="selectedDepartureAirport"
+                            filter="true">
+                            <ng-template let-item pTemplate="selectedItem">
+                                <span style="vertical-align:middle; margin-left: .5em">{{item.label}}</span>
+                            </ng-template>
+                            <ng-template let-airports pTemplate="item">
+                                <div class="ui-helper-clearfix" style="height: 25px;">
+                                    <div style="font-size:14px;float:right;margin-top:4px">{{airports.value}}</div>
+                                </div>
+                            </ng-template>
+                        </p-dropdown>
+                    </div>
+                    <i class="fas fa-arrow-right"></i>
+                    <div class="col-3">
+                        <p><i class="fas fa-plane-arrival fa-2x"></i> Arrivée :</p>
+                        <p-dropdown [options]="airports" formControlName="arrival" name="selectedArrivalAirport"
+                            filter="true" filterBy="value,value.name">
+                            <ng-template let-item pTemplate="selectedItem">
+                                <span style="vertical-align:middle; margin-left: .5em">{{item.label}}</span>
+                            </ng-template>
+                            <ng-template let-airports pTemplate="item">
+                                <div class="ui-helper-clearfix" style="height: 25px;">
+                                    <div style="font-size:14px;float:right;margin-top:4px">{{airports.value}}</div>
+                                </div>
+                            </ng-template>
+                        </p-dropdown>
+                    </div>
+
+                    <!-- Calendar  -->
+
+                    <div class="col-3 text-center">
+                        <p> <i class="far fa-calendar-alt fa-2x" style="color: white;"></i> Vos dates :</p>
+                        <p-calendar formControlName="dates" name="rangeDates" selectionMode="range"
+                            [readonlyInput]="true"></p-calendar>
+                    </div>
+
+                    <div class="col-2 text-center">
+                        <p><i class="fas fa-user-friends fa-2x"></i> Nombre de billets </p>
+                        <select formControlName="nbrePersonne" class="custom-select">
+                            <option selected value=1> 1 </option>
+                            <option value=2>2</option>
+                            <option value=3>3</option>
+                            <option value=4>4</option>
+                            <option value=5>5</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row m-0 d-flex justify-content-center align-items-center" style="height: 100px;">
+                    <div class="col-3 text-center">
+                        <h6 class="first"><i class="fas fa-plane"></i> {{checked ? ' Vol direct' : ' Avec escale'}}
+                        </h6>
+                        <p-toggleButton formControlName="noEscale" [(ngModel)]='checked' name="escale"
+                            [style]="{'width':'150px'}">
+                        </p-toggleButton>
+                    </div>
+
+                    <div class="col-3 text-center">
+                        <h6> <i class="fas fa-search-dollar fa-1x" style="color: white;"></i> Catégorie :</h6>
+                        <p-dropdown [options]="categories" formControlName="category" placeholder="Choisir une catégorie"
+                            name="categories" optionLabel="name" [showClear]="true">
+                        </p-dropdown>
+                    </div>
+
+                    <div class="col-3 text-center">
+                        <button style="color: white;" [disabled]='flightForm.invalid' type="submit"
+                            class="btn btn-default btn-lg">
+                            <i class="fas fa-arrow-circle-right fa-3x"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row m-0">
+    <div class="col-12">
+        <router-outlet></router-outlet>
+    </div>
+</div>

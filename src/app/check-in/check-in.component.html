@@ -1,0 +1,17 @@
+<p-toast [showTransformOptions]="'translateX(50%)'" position="top-center" key="tc"></p-toast>
+<form [formGroup]='checkInForm' (ngSubmit)='onSubmitCheckInForm()'>
+    <div class="row m-0">
+        <div class="col-10 offset-1">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control m-4" id="billetNumber" formControlName="flightNumber"
+                    placeholder="Numéro de billet ou reservation ">
+                <input type="text" class="form-control m-4" id="nom" formControlName="nom" placeholder="Votre nom ">
+                <input type="text" class="form-control m-4" id="prenom" formControlName="prenom"
+                    placeholder="Votre prénom ">
+            </div>
+        </div>
+        <button style="color: white;" type="submit" [disabled]='checkInForm.invalid' class="btn btn-default btn-lg">
+            <i class="fas fa-arrow-circle-right fa-2x"></i>
+        </button>
+    </div>
+</form>

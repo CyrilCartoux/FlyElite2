@@ -1,0 +1,61 @@
+<p-toast [showTransformOptions]="'translateX(50%)'" position="top-center" key="tc"></p-toast>
+<div class="text-center">
+    <h3 class="m-1 mb-4">Editer vol {{idToEdit+1}} : </h3>
+</div>
+
+<hr style="background-color: white; width: 200px;">
+<form [formGroup]='editFlightForm' (submit)='onSubmitEditFlightForm()'>
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <p><i class="fas fa-plane-departure fa-2x"></i> Départ : </p>
+            <p-dropdown [options]="airports" formControlName="departure" name="departureAirport" filter="true">
+                <ng-template let-item pTemplate="selectedItem">
+                    <span style="vertical-align:middle; margin-left: .5em">{{item.label}}</span>
+                </ng-template>
+                <ng-template let-airports pTemplate="item">
+                    <div class="ui-helper-clearfix" style="height: 25px;">
+                        <div style="font-size:14px;float:right;margin-top:4px">{{airports.value}}</div>
+                    </div>
+                </ng-template>
+            </p-dropdown>
+        </div>
+        <div class="form-group col-md-4">
+            <p><i class="fas fa-plane-arrival fa-2x"></i> Arrivée :</p>
+            <p-dropdown [options]="airports" formControlName="arrival" name="arrivalAirport" filter="true"
+                filterBy="value,value.name">
+                <ng-template let-item pTemplate="selectedItem">
+                    <span style="vertical-align:middle; margin-left: .5em">{{item.label}}</span>
+                </ng-template>
+                <ng-template let-airports pTemplate="item">
+                    <div class="ui-helper-clearfix" style="height: 25px;">
+                        <div style="font-size:14px;float:right;margin-top:4px">{{airports.value}}</div>
+                    </div>
+                </ng-template>
+            </p-dropdown>
+        </div>
+        <div class="form-group col-md-4">
+            <p> <i class="far fa-calendar-alt fa-2x" style="color: white;"></i> Vos dates :</p>
+            <p-calendar name="rangeDates" formControlName="dates" id="calendar" selectionMode="range"
+                [readonlyInput]="true">
+            </p-calendar>
+        </div>
+    </div>
+
+    <div class="form-row text-center">
+
+        <div class="form-group col-md-6">
+            <h6> <i class="fas fa-search-dollar fa-1x" style="color: white;"></i> Catégorie :</h6>
+            <p-dropdown [options]="categories" formControlName="category" placeholder="Categories - Economy"
+                name="categories" optionLabel="name" [showClear]="true">
+            </p-dropdown>
+        </div>
+        <div class="form-group col-md-6 text-center">
+            <h6 class="first"><i class="fas fa-plane"></i> {{checked ? ' Vol direct' : ' Avec escale'}}
+            </h6>
+            <p-toggleButton formControlName="noEscale" [(ngModel)]='checked' name="escale" [style]="{'width':'150px'}">
+            </p-toggleButton>
+        </div>
+    </div>
+    <button type="submit" [disabled]="editFlightForm.invalid" class="btn btn-primary m-3 btn-lg"> Modifier </button>
+</form>
+<hr style="background-color: white;">

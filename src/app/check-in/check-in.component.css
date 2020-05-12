@@ -1,0 +1,4 @@
+.row {
+    box-shadow: inset -1px 1px 32px -22px rgba(255,255,255,1);
+    border-radius: 10px;
+}

@@ -1,0 +1,15 @@
+h6 {
+    color: black;
+}
+
+p {
+    color: black;
+}
+
+
+.verticalLine {
+    border-left: 1px solid black;
+}
+.row {
+    border-radius: 6px;
+}

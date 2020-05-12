@@ -1,0 +1,81 @@
+<div class="container-fluid text-center p-3">
+    <h2><i class="fas fa-plane-departure fa-2x"> </i> Votre voyage vers {{ flight.arrival }}</h2>
+</div>
+
+<hr style="background-color: white;">
+<div *ngIf="isLoading" class="d-flex justify-content-center align-content-center p-4">
+    <app-loading-spinner></app-loading-spinner>
+</div>
+<div class="container mb-3" *ngIf="!isLoading">
+
+    <div class="row m-0">
+        <div class="col-12 p-1">
+            <i class="fas fa-arrow-right fa-2x"></i> <span> Votre départ : Aéroport de {{ flight.departure }} le
+                {{ flight.departureTime | date:'dd/MM HH:mm' }}. </span>
+        </div>
+        <div class="col-12 p-1">
+            <i class="fas fa-arrow-right fa-2x"></i><span> Votre arrivée : - {{ flight.arrival }} le
+                {{ flight.landingTime | date:'dd/MM HH:mm' }} </span>
+        </div>
+        <div class="col-12 p-1" *ngIf="userFlightForm.noEscale">
+            <i class="fas fa-plane"></i> Vol direct
+        </div>
+        <div class="col-12 p-1" *ngIf="!userFlightForm.noEscale">
+            <i class="fas fa-plane"></i> Vol AVEC escales
+        </div>
+    </div>
+    <div class="row m-0 pt-2">
+        <div class="col-10">
+            <div class="row m-0 d-flex justify-content-around">
+                <div class="col-2">
+                    <h6>Numéro du vol : </h6>
+                    <p>{{ flight.flightNumber }}</p>
+                </div>
+
+                <div class="col-4 text-center">
+                    <h6>Compagnie : </h6>
+                    <p>{{ flight.company }}</p>
+                </div>
+                <i class="fas fa-arrow"></i>
+                <div class="col-4 text-center">
+                    <h6>Catégorie de vol : </h6>
+                    <p> {{userFlightForm.category.name}} </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<hr style="background-color: white;">
+
+<div class="container text-center pb-5">
+    <h4>Ajouter des passagers : <button type="button" class="btn btn-success m-1" (click)="addMoreUsers()">
+            <i class="fas fa-plus"></i>
+        </button> </h4>
+    <br>
+    <form [formGroup]="addUserForm" (ngSubmit)='onSubmit()'>
+        <div formArrayName="users">
+            <div class="row m-0 p-2" *ngFor="let user of users.controls; let i = index;" [formGroupName]="i">
+                <div class="col-5">
+                    <input type="text" name="email" class="form-control" placeholder="Email" formControlName="email">
+                </div>
+                <div class="col-2">
+                    <input type="text" name="nom" class="form-control" placeholder="Nom" formControlName="nom">
+                </div>
+                <div class="col-2">
+                    <input type="text" name="prenom" class="form-control" placeholder="Prénom" formControlName="prenom">
+                </div>
+                <div class="col-2 d-flex justify-content-around">
+                    <button type="button" class="btn btn-danger m-1" (click)="deleteUser(i)">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="row m-0 d-flex align-content-center justify-content-center p-3">
+            <button type="submit" class="btn btn-success btn-lg m-2">Valider et payer</button>
+            <button class="btn btn-danger btn-sm m-2" (click)="onCancel()">Annuler</button>
+        </div>
+    </form>
+</div>

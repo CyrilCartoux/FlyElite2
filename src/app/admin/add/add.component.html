@@ -1,0 +1,54 @@
+<p-toast [showTransformOptions]="'translateX(50%)'" position="top-center" key="tc"></p-toast>
+<div class="text-center">
+    <h3 class="m-1 mb-4">Ajouter un vol : </h3>
+</div>
+
+<hr style="background-color: white; width: 200px;">
+<form [formGroup]='addFlightForm' (submit)='onSubmitAddFlightForm()'>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="depart">Départ</label>
+            <input type="text" class="form-control" formControlName="departure" id="depart" placeholder="Départ">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="arrivee">Arrivée</label>
+            <input type="text" class="form-control" formControlName="arrival" id="arrivee" placeholder="Arrivée">
+        </div>
+    </div>
+
+    <div class="form-row text-center">
+        <div class="form-group col-md-4">
+            <label for="calendar">Dates : </label>
+            <p-calendar name="rangeDates" formControlName="dates" id="calendar" selectionMode="range"
+                [readonlyInput]="true">
+            </p-calendar>
+        </div>
+        <div class="form-group col-md-4">
+            <label for="compagnie">Heure départ : </label>
+            <p-calendar formControlName="departureTime" name="date" [timeOnly]="true"></p-calendar>
+        </div>
+        <div class="form-group col-md-4">
+            <label for="numVol">Heure arrivée : </label>
+            <p-calendar formControlName="landingTime" name="date1" [timeOnly]="true"></p-calendar>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="compagnie">Compagnie</label>
+            <input type="text" formControlName="company" class="form-control" id="compagnie">
+        </div>
+        <div class="form-group col-md-4 text-center">
+            <h6 class="first"><i class="fas fa-plane"></i> {{checked ? ' Vol direct' : ' Avec escale'}}
+            </h6>
+            <p-toggleButton formControlName="noEscale" [(ngModel)]='checked' name="escale" [style]="{'width':'150px'}">
+            </p-toggleButton>
+        </div>
+        <div class="form-group col-md-2">
+            <label for="numVol">Numéro vol</label>
+            <input type="text" formControlName="flightNumber" class="form-control" id="numVol">
+        </div>
+    </div>
+
+    <button type="submit" [disabled]="addFlightForm.invalid" class="btn btn-primary m-3 btn-lg">Enregistrer</button>
+</form>
