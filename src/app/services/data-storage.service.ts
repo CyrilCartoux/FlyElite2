@@ -84,13 +84,22 @@ export class DataStorageService {
     const departure = form.value.departureTime.toUTCString();
     const landing = form.value.landingTime.toUTCString();
     const datesVol = form.value.dates.toLocaleString();
+    
+     // f$cking ugly but had to do it to remove "à 00:00:00"
+    const newDates = datesVol.split(',');
+    const str = [];
+    for (const date of newDates) {
+      str.push(date.substring(0, 10));
+    }
+    const strDate = str.toLocaleString();
+
     await firebase.database().ref('flights').push({
       departure: form.value.departure,
       arrival: form.value.arrival,
       flightNumber: form.value.flightNumber,
       departureTime: departure,
       landingTime: landing,
-      dates: datesVol,
+      dates: strDate,
       company: form.value.company,
       noEscale: form.value.noEscale
     });
@@ -122,13 +131,21 @@ export class DataStorageService {
     const departure = form.value.departureTime.toUTCString();
     const landing = form.value.landingTime.toUTCString();
     const datesVol = form.value.dates.toLocaleString();
+    
+     // f$cking ugly but had to do it to remove "à 00:00:00"
+    const newDates = datesVol.split(',');
+    const str = [];
+    for (const date of newDates) {
+      str.push(date.substring(0, 10));
+    }
+    const strDate = str.toLocaleString();
     await firebase.database().ref('flights').child(key).update({
       departure: form.value.departure,
       arrival: form.value.arrival,
       flightNumber: form.value.flightNumber,
       departureTime: departure,
       landingTime: landing,
-      dates: datesVol,
+      dates: strDate,
       company: form.value.company,
       noEscale: form.value.noEscale
     });

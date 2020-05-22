@@ -47,10 +47,24 @@ export class FlightService {
 
   // match flights between user research and flights in database :
   findFlight(flightToSearch: FlightToSearch): boolean {
+    // f$cking ugly but had to do it to remove "à 00:00:00"
+    const modifiedFlight = this.transformFlightInfos(flightToSearch);
+    const newDates = modifiedFlight.dates.split(',');
+    const str = [];
+    for (const date of newDates) {
+      str.push(date.substring(0, 10));
+    }
+    const strDate = str.toLocaleString();
+    flightToSearch.dates = strDate;
+
     this.flightsFounded = [];
     this.userFlightForm = flightToSearch;
+    console.log(flightToSearch)
+
+    
 
     this.flights.forEach((elt: Flight) => {
+      console.log(this.transformFlightInfos(elt))
       if (JSON.stringify(this.transformFlightInfos(elt)) === JSON.stringify(this.transformFlightInfos(flightToSearch))) {
         this.flightsFounded.push(elt);
       }

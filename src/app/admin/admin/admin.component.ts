@@ -2,6 +2,7 @@ import { DataStorageService } from './../../services/data-storage.service';
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api/menuitem';
 import { MessageService } from 'primeng/api';
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-admin',
@@ -25,8 +26,25 @@ export class AdminComponent implements OnInit {
       this.flights = [];
       this.flights = flights;
     });
-    // load the unique keys of flights
-    this.keysOfFlights = this.dataService.getKeysOfFlights();
+
+    const dates = [];
+    const flights = [];
+
+    firebase.database().ref('flights').on('value', (snapshot) => {
+      snapshot.forEach(elt => {
+        const date = elt.val().dates;
+        dates.push(date.split(','));
+        flights.push(elt.val());
+        for (const flight of flights) {
+          for (const day of dates) {
+            flight.dates = day;
+          }
+        }
+      });
+      this.flights = flights;
+      console.log(this.flights);
+    });
+
 
     this.items = [
       {
